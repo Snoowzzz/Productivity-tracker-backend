@@ -1,0 +1,86 @@
+# from typing import Annotated
+# from fastapi import FastAPI,Request,HTTPException,status,Depends
+# from fastapi.templating import Jinja2Templates
+# from fastapi.responses import HTMLResponse
+# from schemas import PostBase,PostResponse,PostCreate
+
+# from sqlalchemy import select
+# from sqlalchemy.orm import session
+# import models
+# from database import Base, engine , get_db
+
+# Base.metadata.create_all(bind=engine)
+
+# app = FastAPI()
+
+# templates = Jinja2Templates(directory="templates")
+
+# users = [
+#     {
+#         "id": 1,
+#         "author": "johndoe",
+#         "title": "john@example.com",
+#         "content": "Admin",
+#         "Date_Created": "26-09-2024"
+#     },
+#     {
+#         "id": 2,
+#         "author": "janesmith",
+#         "title": "jane@example.com",
+#         "content": "Editor",
+#         "Date_Created": "26-02-2025"
+#     },
+#     {
+#         "id": 3,
+#         "author": "bobwilson",
+#         "title": "bob@example.com",
+#         "content": "User",
+#         "Date_Created": "26-09-2025"
+#     }
+# ]
+
+
+# @app.get("/",include_in_schema=False) 
+# def home(request : Request):
+#     return templates.TemplateResponse(request, "home.html",{"users": users}) 
+
+
+# @app.get("/users",response_model=list[PostResponse])
+# def get_users():
+#     return users
+# ## using a reponse model from schemas helps in filtering data which does
+# ## is not required and also it shows error when we not send the correct 
+# ## data
+
+# ## Create Post
+# @app.post(
+#     "/users",
+#     response_model=PostResponse,
+#     status_code=status.HTTP_201_CREATED,
+# )
+# def create_user(user: PostCreate):
+#     new_id = max(p["id"] for p in users) + 1 if users else 1
+#     new_post = {
+#         "id": new_id,
+#         "author": user.author,
+#         "title": user.title,
+#         "content": user.content,
+#         "Date_Created": "April 23, 2025",
+#     }
+#     users.append(new_post)
+#     return new_post
+
+# @app.get("/events/{event_id}",response_class=HTMLResponse)
+# def get_event(event_id: int):
+#     for user in users:
+#        if user.get("id") == event_id:
+#            return f"{user}"
+#     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Id not found")
+
+# @app.get("/names/{name_player}",response_class=HTMLResponse)
+# def get_name(name_player: str):
+#     for user in users:
+#        if user.get("username") == name_player:
+#            return f"<h>{user}</h>"
+#     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="name not found")
+
