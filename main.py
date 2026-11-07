@@ -10,10 +10,11 @@ class Task(BaseModel):
     description: str
 
 
-# Outgoing task data
+# # Outgoing task data
+# class TaskResponse(Task):
+#     id: int
 class TaskResponse(Task):
-    id: int
-
+    id : int
 
 # Temporary database
 tasks_db = {}
@@ -25,12 +26,12 @@ def home():
 
 
 # GET all tasks
-@app.get("/tasks", response_model=list[TaskResponse])
+@app.get("/tasks",response_model=list[TaskResponse])
 def get_tasks():
     return list(tasks_db.values())
 
 
-# GET a particular task
+# # GET a particular task
 @app.get("/tasks/{task_id}", response_model=TaskResponse)
 def get_task(task_id: int):
 
@@ -38,6 +39,7 @@ def get_task(task_id: int):
         raise HTTPException(status_code=404, detail="Task not found")
 
     return tasks_db[task_id]
+
 
 
 # CREATE a task
