@@ -1,8 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-
+from database import engine,Base
+import models
 app = FastAPI()
 
+Base.metadata.create_all(bind= engine)
 
 # Incoming task data
 class Task(BaseModel):
