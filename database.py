@@ -1,7 +1,8 @@
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker,declarative_base
 
+Base = declarative_base()
 SQLALCHEMY_DATABASE_URL = "sqlite:///./productivity.db"
 
 engine = create_engine(
