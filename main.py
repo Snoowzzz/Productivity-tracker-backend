@@ -54,7 +54,6 @@ def create_task(task: Task):
     }
 
     tasks_db[new_id] = new_task
-
     return new_task
 
 
