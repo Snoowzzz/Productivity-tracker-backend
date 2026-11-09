@@ -13,9 +13,11 @@ engine = create_engine(
 
 SessionLocal = sessionmaker(bind = engine,autoflush = False)
 
-db = SessionLocal()
-try:
-    #perform our database operations here
-    pass
-finally:
-    db.close()
+def get_db():
+    db = SessionLocal()
+    try:
+        #perform our database operations here
+        yield db
+    finally:
+        db.close()
+    
