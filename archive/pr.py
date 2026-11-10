@@ -52,3 +52,8 @@ def create_task(
         title = task.title,
         description = task.description,
     )
+    db.add(new_task)
+    db.commit()
+    db.refresh(new_task)
+
+    return new_task
