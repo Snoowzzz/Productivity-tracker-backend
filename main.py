@@ -29,3 +29,10 @@ def create_task(task: TaskCreate, db: Session = Depends(get_db)):
     db.refresh(new_task)
 
     return new_task
+
+@app.get("/tasks",response_model=list[TaskResponse],status_code=200)
+def get_tasks(db: Session = Depends(get_db)):
+    task = db.query(Task).all()
+    return task
+
+    

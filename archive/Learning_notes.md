@@ -1,3 +1,5 @@
+
+
 # FastAPI + SQLAlchemy Learning Notes
 
 ## Personal Productivity & Learning Tracker --- Progress so far
@@ -25,16 +27,15 @@ restarted. We are replacing that temporary storage with SQLite.
 
 ---
 
-  In-memory dictionary                SQLite database
+  In-memory dictionary                                              SQLite database
 
 ---
 
-  Lives in application memory         Stored in a database file
+  Lives in application memory                                    Stored in a database file
 
-  Data is lost when the process stops Data persists after restart
+  Data is lost when the process stops                        Data persists after restart
 
-  Simple for an initial exercise      Suitable for persistent application
-                                      data
+  Simple for an initial exercise       				   Suitable for persistent application data
 
 No SQL queries needed               Data is accessed through database
                                       operations
@@ -415,16 +416,16 @@ Purpose: - Defines how a database table is represented. - Defines the
 table name and its columns. - Maps Python objects to rows in the
 database.
 
-### Compare them
+### 			Compare them
 
-  Pydantic schema                             SQLAlchemy model
+  Pydantic schema                            			 SQLAlchemy model
 
 ---
 
-  `TaskCreate`                                `Task`
-  API data validation/serialization           Database table mapping
-  `BaseModel` inheritance                     SQLAlchemy `Base` inheritance
-  Used by FastAPI request/response handling   Used by SQLAlchemy ORM
+  `TaskCreate`                               				 `Task`
+  API data validation/serialization          			 Database table mapping
+  `BaseModel` inheritance                     			 SQLAlchemy `Base` inheritance
+  Used by FastAPI request/response handling  	 Used by SQLAlchemy ORM
 
 We use `TaskCreate` for incoming data and `Task` for the database
 object. Their names are deliberately different to avoid confusion.
