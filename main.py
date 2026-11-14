@@ -44,3 +44,18 @@ def get_task(task_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Task not found")
 
     return task
+
+@app.put("/tasks/{task_id}",response_model=TaskResponse,status_code=201)
+def update_task(task_id: int,task: TaskCreate ,db: Session = Depends(get_db)):
+    task = db.query(Task).filter(Task.id == task_id).first()
+
+    if task is None:
+        raise HTTPException(status_code=404, detail="Task not found")
+    
+    new_task = Task(
+    title=task.title,
+    description=task.description
+)
+    db.query(Task).filter(Task.id == task_id).add(new_task)
+    db[task_id]  = new_task
+    db.commit()
