@@ -35,9 +35,12 @@ def get_tasks(db: Session = Depends(get_db)):
     task = db.query(Task).all()
     return task
 
-@app.get("/tasks/{task_id}",response_model=TaskResponse,status_code=200)
-def get_task(task_id : int,db: Session =  Depends(get_db)):
-    if task_id  not in Task.id:
-        raise HTTPException(status_code=404,detail="Task not found")
-    task = db.query(task_id = task_id).first()
+@app.get("/tasks/{task_id}", response_model=TaskResponse)
+def get_task(task_id: int, db: Session = Depends(get_db)):
+
+    task = db.query(Task).filter(Task.id == task_id).first()
+
+    if task is None:
+        raise HTTPException(status_code=404, detail="Task not found")
+
     return task
